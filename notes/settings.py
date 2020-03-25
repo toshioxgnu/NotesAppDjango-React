@@ -39,17 +39,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'channels',
-    'channels_redis',
     'notes_app',
 
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'https://localhost:3000',
-)
 
 MIDDLEWARE = [
-
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,8 +53,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+]
+
 
 ROOT_URLCONF = 'notes.urls'
 
@@ -136,7 +137,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'HOSTS': [('127.0.0.1', 6379)],
+            'hosts': [('127.0.0.1', 6379)],
         },
     },
 }
